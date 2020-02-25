@@ -5,17 +5,17 @@ import Layout from "../components/Layout"
 import BgImage from "../components/BgImage"
 
 const SinglePOST = ({ data }) => {
-  const { content, featuredImage, title } = data.wpgraphql.post
+  const { content, image, title } = data.wpgraphql.post
 
   return (
     <Layout>
       <Container sx={{ maxWidth: `l` }}>
-        <BgImage img={featuredImage} height="400px" />
+        <BgImage img={image} height="400px" />
         <Box sx={{ variant: `card.default` }}>
           <h1 dangerouslySetInnerHTML={{ __html: title }} />
           <Box
             className="content"
-            dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: content.content }}
           />
         </Box>
       </Container>
@@ -25,14 +25,14 @@ const SinglePOST = ({ data }) => {
 export default SinglePOST
 
 export const pageQuery = graphql`
-  query GET_POST($id: ID!) {
-    wpgraphql {
-      post(id: $id) {
-        title
+  query GET_POST($slug: String!) {
+    contentfulPost(slug: { eq: $slug }) {
+      title
+      content {
         content
-        featuredImage {
-          ...GatsbyImageQuery
-        }
+      }
+      image {
+        ...GatsbyImageQuery
       }
     }
   }

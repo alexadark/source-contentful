@@ -4,20 +4,18 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
 const GatsbyImage = ({ img }) =>
-  img && <Img fluid={img.imageFile.childImageSharp.fluid} alt={img.altText} />
+  img && <Img fluid={img.fluid} alt={img.title} />
 
 export default GatsbyImage
 
 export const query = graphql`
-  fragment GatsbyImageQuery on WPGraphQL_MediaItem {
-    altText
-    sourceUrl
-    imageFile {
-      childImageSharp {
-        fluid(maxWidth: 1200, quality: 80) {
-          ...GatsbyImageSharpFluid_tracedSVG
-        }
-      }
+  fragment GatsbyImageQuery on ContentfulAsset {
+    title
+    fluid(maxWidth: 1200, quality: 80) {
+      ...GatsbyContentfulFluid_withWebp_noBase64
+    }
+    ogimg: resize(width: 1200) {
+      src
     }
   }
 `

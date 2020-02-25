@@ -7,8 +7,8 @@ import BackgroundImage from "gatsby-background-image"
 const BgImage = ({ img, height }) =>
   img && (
     <BackgroundImage
-      fluid={img.imageFile.childImageSharp.fluid}
-      alt={img.altText}
+      fluid={img.fluid}
+      alt={img.title}
       tag="div"
       sx={{
         width: `100%`,
@@ -22,15 +22,13 @@ const BgImage = ({ img, height }) =>
 export default BgImage
 
 export const query = graphql`
-  fragment GatsbyImageQuery on WPGraphQL_MediaItem {
-    altText
-    sourceUrl
-    imageFile {
-      childImageSharp {
-        fluid(maxWidth: 1200, quality: 80) {
-          ...GatsbyImageSharpFluid_tracedSVG
-        }
-      }
+  fragment GatsbyImageQuery on ContentfulAsset {
+    title
+    fluid(maxWidth: 1200, quality: 80) {
+      ...GatsbyContentfulFluid_withWebp_noBase64
+    }
+    ogimg: resize(width: 1200) {
+      src
     }
   }
 `

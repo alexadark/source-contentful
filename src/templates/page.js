@@ -3,13 +3,13 @@ import { jsx, Box } from "theme-ui"
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 
-import {
-  ButtonBlock,
-  ContentBlock,
-  HeadingBlock,
-  ImageBlock,
-  ProjectsBlock,
-} from "../components/AcfBlocks"
+// import {
+//   ButtonBlock,
+//   ContentBlock,
+//   HeadingBlock,
+//   ImageBlock,
+//   ProjectsBlock,
+// } from "../components/AcfBlocks"
 
 const Page = ({ data }) => {
   const {
@@ -27,7 +27,7 @@ const Page = ({ data }) => {
           sx={{ variant: `card.default` }}
         />
       )}
-      {flexibleLayouts.length > 0 &&
+      {/* {flexibleLayouts.length > 0 &&
         flexibleLayouts.map(block => {
           switch (block.__typename) {
             case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ContentBlock":
@@ -43,7 +43,7 @@ const Page = ({ data }) => {
             default:
               return ""
           }
-        })}
+        })} */}
     </Layout>
   )
 }
@@ -57,16 +57,16 @@ export const pageQuery = graphql`
         title
         content
         uri
-        flexLayouts {
-          flexibleLayouts {
-            __typename
-            ...contentBlockFragment
-            ...projectsBlockFragment
-            ...imageBlockFragment
-            ...headingBlockFragment
-            ...buttonBlockFragment
-          }
-        }
+        # flexLayouts {
+        #   flexibleLayouts {
+        #     __typename
+        #     ...contentBlockFragment
+        #     ...projectsBlockFragment
+        #     ...imageBlockFragment
+        #     ...headingBlockFragment
+        #     ...buttonBlockFragment
+        #   }
+        # }
       }
     }
   }
