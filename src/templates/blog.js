@@ -2,7 +2,7 @@
 import { jsx, Container, Box, Flex } from "theme-ui"
 import Layout from "../components/Layout"
 import { graphql, Link } from "gatsby"
-// import Pagination from "../components/Pagination"
+import Pagination from "../components/Pagination"
 import BgImage from "../components/BgImage"
 
 const Blog = ({ data, pageContext }) => {
@@ -51,12 +51,7 @@ const Blog = ({ data, pageContext }) => {
               </Box>
             </article>
           ))}
-        {/* <Pagination
-          pageNumber={pageNumber}
-          hasNextPage={hasNextPage}
-          allPosts={allPosts}
-          itemsPerPage={itemsPerPage}
-        /> */}
+        <Pagination pageContext={pageContext} />
       </Container>
     </Layout>
   )

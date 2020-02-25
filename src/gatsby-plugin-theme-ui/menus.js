@@ -65,6 +65,7 @@ export default {
       "&:hover": {
         transform: `translateY(-3px)`,
         boxShadow: `hover`,
+        color: "white",
       },
       '&[aria-current="page"]': {
         variant: `gradients.primary`,

@@ -3,31 +3,45 @@ import { jsx, Box } from "theme-ui"
 
 import { Link } from "gatsby"
 
-const Pagination = ({ pageNumber, hasNextPage, allPosts, itemsPerPage }) => (
-  <nav sx={{ variant: `menus.pagination` }}>
-    {pageNumber > 1 && (
+const Pagination = ({ pageContext }) => {
+  const {
+    pageNumber,
+    humanPageNumber,
+    numberOfPages,
+    limit,
+    previousPagePath,
+    nextPagePath,
+  } = pageContext
+  return (
+    <nav sx={{ variant: `menus.pagination` }}>
       <Box sx={{ variant: `menus.prevNextLinks` }}>
-        <Link to={pageNumber > 2 ? `blog/${pageNumber - 1}` : `/`}>
-          Previous Posts
-        </Link>
+        {humanPageNumber > 1 ? (
+          <Link to={previousPagePath}>Previous Posts</Link>
+        ) : (
+          <Box sx={{ color: `mutted` }}>Previous Posts</Box>
+        )}
       </Box>
-    )}
-    <Box sx={{ variant: `menus.pageNumbers` }}>
-      {Array.from({ length: allPosts.length / itemsPerPage }, (_, i) => (
-        <Link
-          key={`pagination-number${i + 1}`}
-          to={i === 0 ? `/` : `blog/${i + 1}`}
-        >
-          {i + 1}
-        </Link>
-      ))}
-    </Box>
-    {hasNextPage && (
+
+      <Box sx={{ variant: `menus.pageNumbers` }}>
+        {Array.from({ length: numberOfPages }, (_, i) => (
+          <Link
+            key={`pagination-number${i + 1}`}
+            to={i === 0 ? `/` : `/${i + 1}`}
+          >
+            {i + 1}
+          </Link>
+        ))}
+      </Box>
+
       <Box sx={{ variant: `menus.prevNextLinks` }}>
-        <Link to={`blog/${pageNumber + 1}`}>Next Posts</Link>
+        {humanPageNumber < limit ? (
+          <Link to={nextPagePath}>Next Posts</Link>
+        ) : (
+          <Box sx={{ color: `mutted` }}>Next Posts</Box>
+        )}
       </Box>
-    )}
-  </nav>
-)
+    </nav>
+  )
+}
 
 export default Pagination
