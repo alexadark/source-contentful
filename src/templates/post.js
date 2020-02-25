@@ -15,7 +15,9 @@ const SinglePOST = ({ data }) => {
           <h1 dangerouslySetInnerHTML={{ __html: title }} />
           <Box
             className="content"
-            dangerouslySetInnerHTML={{ __html: content.content }}
+            dangerouslySetInnerHTML={{
+              __html: content.childMarkdownRemark.html,
+            }}
           />
         </Box>
       </Container>
@@ -29,7 +31,9 @@ export const pageQuery = graphql`
     contentfulPost(slug: { eq: $slug }) {
       title
       content {
-        content
+        childMarkdownRemark {
+          html
+        }
       }
       image {
         ...GatsbyImageQuery

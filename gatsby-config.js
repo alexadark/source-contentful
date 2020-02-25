@@ -38,5 +38,6 @@ module.exports = {
     `gatsby-plugin-theme-ui`,
     `gatsby-theme-style-guide`,
     `gatsby-plugin-sass`,
+    `gatsby-transformer-remark`,
   ],
 }

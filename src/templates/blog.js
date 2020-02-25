@@ -28,9 +28,11 @@ const Blog = ({ data, pageContext }) => {
                     sx={{ color: `text`, "&:hover": { color: `primary` } }}
                   />
                 </h2>
-                <Box
+                <p
                   className="content"
-                  dangerouslySetInnerHTML={{ __html: post.content.content }}
+                  dangerouslySetInnerHTML={{
+                    __html: post.content.childMarkdownRemark.excerpt,
+                  }}
                 />
                 <Flex
                   sx={{
@@ -40,7 +42,7 @@ const Blog = ({ data, pageContext }) => {
                   }}
                 >
                   <Link
-                    to={`/posts/${post.slug}`}
+                    to={`/${post.slug}`}
                     sx={{ variant: `buttons.secondary` }}
                   >
                     Read More
@@ -70,7 +72,9 @@ export const pageQuery = graphql`
         slug
         title
         content {
-          content
+          childMarkdownRemark {
+            excerpt(pruneLength: 300)
+          }
         }
 
         image {
