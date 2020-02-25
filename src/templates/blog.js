@@ -15,7 +15,7 @@ const Blog = ({ data, pageContext }) => {
           data.allContentfulPost &&
           posts.map(post => (
             <article key={post.id}>
-              <Link to={`/posts/${post.slug}`}>
+              <Link to={`/${post.slug}`}>
                 <Box>
                   <BgImage img={post.image} height="400px" />
                 </Box>
@@ -23,7 +23,7 @@ const Blog = ({ data, pageContext }) => {
               <Box sx={{ variant: `card.default`, mb: 8 }}>
                 <h2>
                   <Link
-                    to={`/posts/${post.slug}`}
+                    to={`/${post.slug}`}
                     dangerouslySetInnerHTML={{ __html: post.title }}
                     sx={{ color: `text`, "&:hover": { color: `primary` } }}
                   />

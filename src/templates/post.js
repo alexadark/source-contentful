@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 import BgImage from "../components/BgImage"
 
 const SinglePOST = ({ data }) => {
-  const { content, image, title } = data.wpgraphql.post
+  const { content, image, title } = data.contentfulPost
 
   return (
     <Layout>
