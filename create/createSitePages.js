@@ -14,10 +14,11 @@ module.exports = async ({ actions, graphql }) => {
   `
 
   const { createPage } = actions
+
   const pagesQuery = await graphql(GET_PAGES)
 
   const pages = pagesQuery.data.allContentfulPage.nodes
-  console.log("pages", pages)
+
   pages.map(page => {
     createPage({
       path: `/${page.slug}`,
