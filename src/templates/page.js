@@ -3,36 +3,35 @@ import { jsx, Box } from "theme-ui"
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 
-// import {
-//   ButtonBlock,
-//   ContentBlock,
-//   HeadingBlock,
-//   ImageBlock,
-//   ProjectsBlock,
-// } from "../components/AcfBlocks"
+import {
+  ButtonBlock,
+  ContentBlock,
+  HeadingBlock,
+  ImageBlock,
+  ProjectsBlock,
+} from "../components/AcfBlocks"
 
 const Page = ({ data }) => {
-  const { title } = data.contentfulPage
+  const { title, blocks } = data.contentfulPage
   return (
     <Layout>
-      <h1>{title}</h1>
-      {/* {flexibleLayouts.length > 0 &&
-        flexibleLayouts.map(block => {
+      {blocks.length > 0 &&
+        blocks.map(block => {
           switch (block.__typename) {
-            case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ContentBlock":
+            case "ContentfulComponentTextEditor":
               return <ContentBlock {...block} />
-            case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_HeadingBlock":
+            case "ContentfulComponentHeading":
               return <HeadingBlock {...block} />
-            case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ImageBlock":
+            case "ContentfulComponentImage":
               return <ImageBlock {...block} />
-            case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ButtonBlock":
+            case "ContentfulComponentButton":
               return <ButtonBlock {...block} />
-            case "WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ProjectsBlock":
+            case "ContentfulComponentProjects":
               return <ProjectsBlock {...block} />
             default:
               return ""
           }
-        })} */}
+        })}
     </Layout>
   )
 }
@@ -43,6 +42,14 @@ export const pageQuery = graphql`
   query GET_PAGE($slug: String!) {
     contentfulPage(slug: { eq: $slug }) {
       title
+      blocks {
+        __typename
+        ...contentBlockFragment
+        ...projectsBlockFragment
+        ...imageBlockFragment
+        ...headingBlockFragment
+        ...buttonBlockFragment
+      }
     }
   }
 `

@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
 export const fragment = graphql`
-  fragment imageBlockFragment on WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ImageBlock {
+  fragment imageBlockFragment on ContentfulComponentImage {
     image {
       title
       fluid(maxWidth: 1200, quality: 80) {

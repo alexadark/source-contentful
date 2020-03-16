@@ -3,7 +3,7 @@ import { jsx, Heading } from "theme-ui"
 import { graphql } from "gatsby"
 
 export const fragment = graphql`
-  fragment headingBlockFragment on WPGraphQL_Page_Flexlayouts_FlexibleLayouts_HeadingBlock {
+  fragment headingBlockFragment on ContentfulComponentHeading {
     heading
     type
     centered

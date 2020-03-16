@@ -3,12 +3,7 @@ import { jsx, Box, Flex } from "theme-ui"
 import GatsbyImage from "../GatsbyImage"
 
 const ProjectItem = ({ project }) => {
-  const {
-    title,
-    projectFields: { projectUrl },
-    featuredImage,
-    id,
-  } = project
+  const { title, link, image, id } = project
   return (
     <Box
       className="project"
@@ -31,13 +26,13 @@ const ProjectItem = ({ project }) => {
           },
         }}
       >
-        <GatsbyImage img={featuredImage} />
+        <GatsbyImage img={image} />
         <Box>
           <h4 sx={{ textAlign: `center`, mb: `10px` }}>{title}</h4>
           <Flex sx={{ justifyContent: `center`, mb: 6, mt: 4 }}>
             <a
               sx={{ variant: `buttons.primary` }}
-              href={projectUrl}
+              href={link}
               target="_blank"
               rel="noopener noreferrer"
             >

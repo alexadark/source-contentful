@@ -4,27 +4,28 @@ import Project from "./ProjectItem"
 import { graphql } from "gatsby"
 
 export const fragment = graphql`
-  fragment projectsBlockFragment on WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ProjectsBlock {
+  fragment projectsBlockFragment on ContentfulComponentProjects {
     subtitle
     title
     projects {
-      ... on WPGraphQL_Project {
-        id
-        featuredImage {
-          ...GatsbyImageQuery
+      slug
+      title
+      description {
+        childMarkdownRemark {
+          html
         }
-        slug
-        title
-        uri
-        projectFields {
-          projectUrl
+      }
+      link
+      image {
+        fluid(maxWidth: 1200, quality: 80) {
+          ...GatsbyContentfulFluid_tracedSVG
         }
       }
     }
   }
 `
 
-export const ProjectsBlock = ({ content, title, subtitle, projects }) => {
+export const ProjectsBlock = ({ title, subtitle, projects }) => {
   return (
     <Box sx={{ my: 10 }}>
       <Box sx={{ textAlign: `center` }}>
@@ -41,9 +42,7 @@ export const ProjectsBlock = ({ content, title, subtitle, projects }) => {
         />
       </Box>
       <Flex sx={{ flexWrap: `wrap`, justifyContent: `center`, my: 10 }}>
-        {projects.map(project => (
-          <Project project={project} />
-        ))}
+        {projects && projects.map(project => <Project project={project} />)}
       </Flex>
     </Box>
   )

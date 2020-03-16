@@ -3,8 +3,7 @@ import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
-const GatsbyImage = ({ img }) =>
-  img && <Img fluid={img.fluid} alt={img.title} />
+const GatsbyImage = ({ img }) => img && <Img fluid={img.fluid} />
 
 export default GatsbyImage
 
