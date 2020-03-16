@@ -20,6 +20,7 @@ module.exports = async ({ actions, graphql }) => {
 
   const postsQuery = await graphql(GET_POSTS)
   const posts = postsQuery.data.allContentfulPost.nodes
+
   posts.map(post => {
     createPage({
       path: `/${post.slug}`,

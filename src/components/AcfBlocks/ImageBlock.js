@@ -1,12 +1,15 @@
 /** @jsx jsx */
 import { jsx, Box } from "theme-ui"
 import { graphql } from "gatsby"
-import GatsbyImg from "../GatsbyImage"
+import Img from "gatsby-image"
 
 export const fragment = graphql`
   fragment imageBlockFragment on WPGraphQL_Page_Flexlayouts_FlexibleLayouts_ImageBlock {
     image {
-      ...GatsbyImageQuery
+      title
+      fluid(maxWidth: 1200, quality: 80) {
+        ...GatsbyContentfulFluid_tracedSVG
+      }
     }
   }
 `
@@ -26,7 +29,7 @@ export const ImageBlock = ({ image }) => {
         },
       }}
     >
-      <GatsbyImg img={image} />
+      <Img fluid={image.fluid} alt={image.title} />
     </Box>
   )
 }

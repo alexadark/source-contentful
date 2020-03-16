@@ -12,7 +12,7 @@ export const query = graphql`
   fragment GatsbyImageQuery on ContentfulAsset {
     title
     fluid(maxWidth: 1200, quality: 80) {
-      ...GatsbyContentfulFluid_withWebp_noBase64
+      ...GatsbyContentfulFluid_tracedSVG
     }
   }
 `

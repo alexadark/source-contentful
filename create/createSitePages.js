@@ -1,63 +1,30 @@
 const path = require(`path`)
+const pageTemplate = path.resolve(`./src/templates/page.js`)
 
 module.exports = async ({ actions, graphql }) => {
   const GET_PAGES = `
-  query GET_PAGES($first:Int $after:String){
-    wpgraphql {
-      pages(
-        first: $first
-        after: $after
-        where: {
-          parent: null
-        }
-      ) {
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
-        nodes {
-          id
-          uri
-          pageId
-        }
+  query GET_PAGES{
+    allContentfulPage {
+      nodes {
+        title
+        slug
       }
     }
-  }
+    }
   `
 
   const { createPage } = actions
-  const allPages = []
-  const fetchPages = async variables =>
-    await graphql(GET_PAGES, variables).then(({ data }) => {
-      const {
-        wpgraphql: {
-          pages: {
-            nodes,
-            pageInfo: { hasNextPage, endCursor },
-          },
-        },
-      } = data
+  const pagesQuery = await graphql(GET_PAGES)
 
-      nodes.map(page => {
-        allPages.push(page)
-      })
-      if (hasNextPage) {
-        return fetchPages({ first: variables.first, after: endCursor })
-      }
-      return allPages
-    })
-
-  await fetchPages({ first: 100, after: null }).then(allPages => {
-    const pageTemplate = path.resolve(`./src/templates/page.js`)
-
-    allPages.map(page => {
-      const path = `/${page.uri}`
-      console.log(`create page: ${page.uri}`)
-      createPage({
-        path,
-        component: pageTemplate,
-        context: page,
-      })
+  const pages = pagesQuery.data.allContentfulPage.nodes
+  console.log("pages", pages)
+  pages.map(page => {
+    createPage({
+      path: `/${page.slug}`,
+      component: pageTemplate,
+      context: {
+        slug: page.slug,
+      },
     })
   })
 }

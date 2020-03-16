@@ -12,21 +12,10 @@ import Layout from "../components/Layout"
 // } from "../components/AcfBlocks"
 
 const Page = ({ data }) => {
-  const {
-    title,
-    content,
-    excerpt,
-    flexLayouts: { flexibleLayouts },
-  } = data.wpgraphql.page
+  const { title } = data.contentfulPage
   return (
     <Layout>
-      {content && (
-        <Box
-          className="content"
-          dangerouslySetInnerHTML={{ __html: content }}
-          sx={{ variant: `card.default` }}
-        />
-      )}
+      <h1>{title}</h1>
       {/* {flexibleLayouts.length > 0 &&
         flexibleLayouts.map(block => {
           switch (block.__typename) {
@@ -51,23 +40,9 @@ const Page = ({ data }) => {
 export default Page
 
 export const pageQuery = graphql`
-  query GET_PAGE($id: ID!) {
-    wpgraphql {
-      page(id: $id) {
-        title
-        content
-        uri
-        # flexLayouts {
-        #   flexibleLayouts {
-        #     __typename
-        #     ...contentBlockFragment
-        #     ...projectsBlockFragment
-        #     ...imageBlockFragment
-        #     ...headingBlockFragment
-        #     ...buttonBlockFragment
-        #   }
-        # }
-      }
+  query GET_PAGE($slug: String!) {
+    contentfulPage(slug: { eq: $slug }) {
+      title
     }
   }
 `
