@@ -2,7 +2,7 @@ const config = require("./config")
 
 module.exports = {
   siteMetadata: {
-    title: `My Gatsby Blog with wpgraphql`,
+    title: `Source Contentful`,
     description: `My awesome blog`,
     Author: `Alexandra Spalato`,
   },

@@ -7,16 +7,15 @@ import Headroom from "react-headroom"
 const Header = () => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
-      wpgraphql {
-        generalSettings {
-          description
+      site {
+        siteMetadata {
           title
         }
       }
     }
   `)
 
-  const { title, description } = data.wpgraphql.generalSettings
+  const { title } = data.site.siteMetadata
 
   return (
     <Headroom>
